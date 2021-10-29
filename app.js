@@ -46,16 +46,20 @@ app.post('/register', function(req,res){
   });
 });
 app.post('/login', function(req,res){
- let attempt = {
-   email: req.body.username,
-   password: req.body.password
- };
- User.findOne(attempt, function(err, result){
-   if(result.length >= 1){
-     res.render('secrets')
-   }else{console.log("no such user")}
- })
-})
+  const username = req.body.username;
+  const password = req.body.password;
+  User.findOne({email: username}, function(err,foundUser){
+    if(err){
+      console.log(err)
+    } else {
+      if(foundUser){
+        if(foundUser.password === password){
+          res.render('secrets')
+        } else{console.log('incorrect password'); res.redirect('/login')}
+      } else {console.log('no such user'); res.redirect('/login')}
+    }
+  });
+});
 
 
 const port = 3000
