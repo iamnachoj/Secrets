@@ -45,7 +45,17 @@ app.post('/register', function(req,res){
     }
   });
 });
-
+app.post('/login', function(req,res){
+ let attempt = {
+   email: req.body.username,
+   password: req.body.password
+ };
+ User.findOne(attempt, function(err, result){
+   if(result.length >= 1){
+     res.render('secrets')
+   }else{console.log("no such user")}
+ })
+})
 
 
 const port = 3000
