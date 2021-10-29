@@ -1,7 +1,7 @@
 const express = require('express');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
-
+const encrypt = require("mongoose-encryption");
 const app = express();
 
 app.use(express.static('public'));
@@ -12,12 +12,16 @@ app.use(express.urlencoded({extended: true}));
 //Mongoose structure
 mongoose.connect("mongodb://localhost:27017/userDB", {useNewUrlParser: true});
 
-const userSchema = {
+const userSchema = new mongoose.Schema({
   email: String,
   password: String,
-};
-const User = new mongoose.model('User', userSchema);
+});
 
+const secret = "Thisisourlittlesecret";
+
+userSchema.plugin(encrypt, {secret: secret, encryptedFields: ["password"]} );
+
+const User = new mongoose.model('User', userSchema);
 
 
 //GET requests for homepage, login and register
@@ -55,8 +59,8 @@ app.post('/login', function(req,res){
       if(foundUser){
         if(foundUser.password === password){
           res.render('secrets')
-        } else{console.log('incorrect password'); res.redirect('/login')}
-      } else {console.log('no such user'); res.redirect('/login')}
+        } else{console.log('incorrect password')}
+      } else {console.log('no such user')}
     }
   });
 });
