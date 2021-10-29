@@ -18,6 +18,8 @@ const userSchema = {
 };
 const User = new mongoose.model('User', userSchema);
 
+
+
 //GET requests for homepage, login and register
 app.get('/', function(req,res){
   res.render('home');
@@ -28,5 +30,23 @@ app.get('/login', function(req,res){
 app.get('/register', function(req,res){
   res.render('register');
 });
+
+//POST request for register and login
+app.post('/register', function(req,res){
+  const newUser = new User({
+    email: req.body.username,
+    password: req.body.password
+  });
+  newUser.save(function(err){
+    if(err){
+      console.log(err);
+    }else{
+      res.render('secrets');
+    }
+  });
+});
+
+
+
 const port = 3000
-app.listen(port, () => console.log("app started on port " + port))
+app.listen(port, () => console.log("app started on port " + port));
