@@ -34,7 +34,7 @@ app.get('/register', function(req,res){
 
 //POST request for register and login
 app.post('/register', function(req,res){
-
+  //everything goes inside the next bcrypt hash function. 
   bcrypt.hash(req.body.password, saltRounds, function(err, hash){ // uses bcrypt to hash password with the defined number of saltrounds
     const newUser = new User({
       email: req.body.username,
@@ -48,6 +48,7 @@ app.post('/register', function(req,res){
       }
     });
   });
+
 });
 app.post('/login', function(req,res){
   const username = req.body.username;
