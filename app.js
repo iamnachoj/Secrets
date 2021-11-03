@@ -32,6 +32,7 @@ mongoose.connect("mongodb://localhost:27017/userDB", {useNewUrlParser: true});
 const userSchema = new mongoose.Schema({
   email: String,
   password: String,
+  googleId: String
 });
 
 //Passport-Local Mongoose will add the hashed password and the salt value.
