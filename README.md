@@ -1,10 +1,11 @@
 # Secrets
- Single Page Application that allows to add anonymous statements. 
+ Single Page Application that allows to add anonymous statements. It is a basic and minimalistic version of <a href="https://play.google.com/store/apps/details?id=sh.whisper&hl=en&gl=US">The Whisper App</a>. Users can sign up, submit their secrets for the world to see, but they don't have to tell the world who they are, and the app keep their secret anonymous.
 
 ## Tools
  - Node.js
  - Express.js
  - Passport.js
+ - Oauth2.0 with Google
  - express sessions
  - EJS templating
 
